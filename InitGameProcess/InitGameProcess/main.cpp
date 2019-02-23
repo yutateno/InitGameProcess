@@ -1,6 +1,4 @@
-#include "DLLXinput.h"
-#include "EffekseerForDXLib.h"
-#include "SoundProcess.hpp"
+#include "Basic.hpp"
 
 
 
@@ -8,9 +6,9 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	// ウィンドウサイズを決める
-	int winWidth = 1920;
-	int winHeight = 1080;
-	int bitColor = 32;
+	BASICPARAM::winWidth = 1920;
+	BASICPARAM::winHeight = 1080;
+	BASICPARAM::bitColor = 32;
 
 
 #ifdef _DEBUG
@@ -29,15 +27,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetWindowIconID(333);
 
 
-	SetGraphMode(winWidth, winHeight, bitColor);			// 画面サイズ設定
-	GetDefaultState(&winWidth, &winHeight, &bitColor);		// デフォルトウィンドウ値を得る
-	SetWindowSize(winWidth, winHeight);									// デフォルトウィンドウサイズに合わせてゲームサイズを変更
+	SetGraphMode(BASICPARAM::winWidth, BASICPARAM::winHeight, BASICPARAM::bitColor);			// 画面サイズ設定
+	GetDefaultState(&BASICPARAM::winWidth, &BASICPARAM::winHeight, &BASICPARAM::bitColor);		// デフォルトウィンドウ値を得る
+	SetWindowSize(BASICPARAM::winWidth, BASICPARAM::winHeight);									// デフォルトウィンドウサイズに合わせてゲームサイズを変更
 
 
 	// 画面サイズに戻す
-	winWidth = 1920;
-	winHeight = 1080;
-	bitColor = 32;
+	BASICPARAM::winWidth = 1920;
+	BASICPARAM::winHeight = 1080;
+	BASICPARAM::bitColor = 32;
 
 
 	// ＤＸライブラリ初期化処理

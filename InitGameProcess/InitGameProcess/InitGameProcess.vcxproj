@@ -161,11 +161,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Basic.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="LoadFile.cpp" />
+    <ClCompile Include="LoadScreen.cpp" />
+    <ClCompile Include="LoadThread.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Manager.cpp" />
     <ClCompile Include="SoundProcess.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Basic.hpp" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="LoadFile.hpp" />
+    <ClInclude Include="LoadScreen.hpp" />
+    <ClInclude Include="LoadThread.hpp" />
+    <ClInclude Include="Manager.hpp" />
     <ClInclude Include="SoundProcess.hpp" />
+    <ClInclude Include="Title.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
