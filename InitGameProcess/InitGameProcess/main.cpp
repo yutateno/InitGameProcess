@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 
 
-	SetWindowText("Re.Gleam");					// メインウインドウのウインドウタイトルを変更する
+	SetWindowText("InitGame");					// メインウインドウのウインドウタイトルを変更する
 	SetBackgroundColor(255, 255, 255);			// 背景色を白に変更
 	SetUseDirect3DVersion(DX_DIRECT3D_11);		// Direct3D11を使用する
 	ChangeWindowMode(TRUE);						// ウィンドウズモードにさせる
@@ -66,7 +66,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetDrawScreen(DX_SCREEN_BACK);	// 背景描画
 	SetMouseDispFlag(FALSE);		// マウスカーソルを非表示にする
 
-
 	SoundProcess::Init();			// サウンドプロセスの初期化
 
 	DLLXinput::Init();				// DLLXinputの更新
@@ -93,10 +92,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	MV1InitModel();					// モデル開放
 
 
-	Effkseer_End();		// Effekseerを終了する。
-
-
 	DLLXinput::Clean();	// DLLXinputの解放
+
+
+	Effkseer_End();		// Effekseerを終了する。
 
 
 	DxLib_End();		// DXライブラリの後始末
