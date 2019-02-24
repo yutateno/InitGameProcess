@@ -3,7 +3,7 @@ DxLib(Effekseer)を用いた環境の構築と、2D/3Dゲームにおいて最�
 他者でも使えるようにしていますが、基本的には自分のためです。
 
 # Dependency
-使用言語：C++
+使用言語：C++<br>
 必要なライブラリ：Effekseer(ver141_319f)
 
 # Setup
