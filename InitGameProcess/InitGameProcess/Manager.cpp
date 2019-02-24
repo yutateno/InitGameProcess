@@ -314,20 +314,6 @@ void Manager::Update()
 			// 終了シーンがロードではないとき
 			if (!preLoadScene)
 			{
-				// フェードを加算する
-				feedCount += 5;
-
-
-				// ゲームの描画に関するのだけを残してゲームに関するもの
-				p_baseMove->Draw();
-
-
-				// フェードアウト処理
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, feedCount);
-				DrawBox(0, 0, BASICPARAM::winWidth, BASICPARAM::winHeight, feedDraw, true);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
-
-
 				// フェードカウントが一定に達したらフラッグを下す
 				if (feedCount >= 255)
 				{
@@ -343,34 +329,46 @@ void Manager::Update()
 					feedCount = 0;
 					BASICPARAM::endFeedNow = false;
 				}
-			} /// if (!preLoadScene)
-			// 終了シーンがロードのとき
-			else
-			{
-				// サウンドを解放する
-				SoundProcess::Release();
+				else
+				{
+					// フェードを加算する
+					feedCount += 5;
 
 
-				// フェードを加算する
-				feedCount += 15;
-
-
-				// ゲームの描画に関するのだけを残してゲームに関するもの
-				p_loadThread->Draw();
+					// ゲームの描画に関するのだけを残してゲームに関するもの
+					p_baseMove->Draw();
+				}
 
 
 				// フェードアウト処理
 				SetDrawBlendMode(DX_BLENDMODE_ALPHA, feedCount);
 				DrawBox(0, 0, BASICPARAM::winWidth, BASICPARAM::winHeight, feedDraw, true);
 				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
-
-
+			} /// if (!preLoadScene)
+			// 終了シーンがロードのとき
+			else
+			{
 				// フェードカウントが一定に達したらフラッグを下す
 				if (feedCount >= 255)
 				{
 					feedCount = 0;
 					BASICPARAM::endFeedNow = false;
 				}
+				else
+				{
+					// フェードを加算する
+					feedCount += 15;
+
+
+					// ゲームの描画に関するのだけを残してゲームに関するもの
+					p_loadThread->Draw();
+				}
+
+
+				// フェードアウト処理
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, feedCount);
+				DrawBox(0, 0, BASICPARAM::winWidth, BASICPARAM::winHeight, feedDraw, true);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 			} /// else(!if (!preLoadScene))
 		} /// else(!if (!BASICPARAM::endFeedNow))
 	} /// else(!if (BASICPARAM::e_nowScene == BASICPARAM::e_preScene))
