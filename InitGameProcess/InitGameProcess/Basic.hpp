@@ -40,6 +40,9 @@ namespace BASICPARAM
 
 	// 次シーンの開始フェードを終えてないかどうか
 	extern bool startFeedNow;
+
+	// フェードの色
+	extern int feedColor;
 }
 
 

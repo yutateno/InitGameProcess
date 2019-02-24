@@ -1,4 +1,4 @@
-#include "Basic.hpp"
+#include "Manager.hpp"
 
 
 
@@ -19,7 +19,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 	SetWindowText("InitGame");					// メインウインドウのウインドウタイトルを変更する
-	SetBackgroundColor(255, 255, 255);			// 背景色を白に変更
+	BASICPARAM::feedColor = GetColor(0, 0, 0);
+	SetBackgroundColor(0, 0, 0);			// 背景色を白に変更
 	SetUseDirect3DVersion(DX_DIRECT3D_11);		// Direct3D11を使用する
 	ChangeWindowMode(TRUE);						// ウィンドウズモードにさせる
 	SetEnableXAudioFlag(TRUE);					// XAudioを使用するようにする
@@ -61,7 +62,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 	SetAlwaysRunFlag(TRUE);			// 裏でもアクティブにする
-	SetDrawScreen(DX_SCREEN_BACK);	// 背景描画
 	SetMouseDispFlag(FALSE);		// マウスカーソルを非表示にする
 
 	SoundProcess::Init();			// サウンドプロセスの初期化
@@ -69,19 +69,27 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DLLXinput::Init();				// DLLXinputの更新
 
 
+	Manager* p_manager = new Manager();
+
+
+	SetDrawScreen(DX_SCREEN_BACK);	// 背景描画
+
+
 	// ゲームの核
-	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
+	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0 && !p_manager->GetEnd())
 	{
 		ClearDrawScreen();
 
 		SoundProcess::Process();
 		DLLXinput::AllControllerUpdate();
 
-		printfDx("%d\t%d\n", DLLXinput::GetPadButtonData(DLLXinput::XINPUT_PAD::NUM01, DLLXinput::XINPUT_PAD::BUTTON_A)
-			, DLLXinput::GetPadButtonData(DLLXinput::XINPUT_PAD::NUM02, DLLXinput::XINPUT_PAD::BUTTON_B));
+		p_manager->Update();
 
 		ScreenFlip();
 	} /// while
+
+
+	delete p_manager;
 
 
 	SoundProcess::Release();		// サウンド開放

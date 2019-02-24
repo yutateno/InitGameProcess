@@ -41,14 +41,14 @@ void LoadThread::Process(const int max, const std::vector<std::string> path
 {
 	if (num < max)
 	{
-		fileName.push_back(-1);
-		ths = thread(&LoadThread::MyNextLoad, this, path[num], ref(fileName[num]), type[num]);
-		ths.join();
-		num++;
 		ClearDrawScreen();
 		SetDrawScreen(DX_SCREEN_BACK);				// ”wŒi•`‰æ
 		p_loadScreen->Process(num, max);			// ƒ[ƒh‰æ–Ê
 		ScreenFlip();
+		fileName.push_back(-1);
+		ths = thread(&LoadThread::MyNextLoad, this, path[num], ref(fileName[num]), type[num]);
+		ths.join();
+		num++;
 		Process(max, path, type);					// “Ç‚İ‚İI‚í‚é‚Ü‚ÅÄ‹A
 	}
 }

@@ -9,12 +9,15 @@ int BASICPARAM::winHeight;
 int BASICPARAM::bitColor;
 bool BASICPARAM::startFeedNow;
 bool BASICPARAM::endFeedNow;
+int BASICPARAM::feedColor;
+
 
 
 /// debug-----------------------------------------------------------------------------------------------------------------------
 #ifdef _DEBUG
 //bool MyDebug::checkFlag = false;
 //bool MyDebug::characterDrawFlag = false;
+
 
 
 /// --------------------------------------------------------------------------------------------------

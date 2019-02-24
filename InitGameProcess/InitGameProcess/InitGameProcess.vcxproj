@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="Basic.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="LoadFile.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseScene.hpp" />
     <ClInclude Include="Basic.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="LoadFile.hpp" />

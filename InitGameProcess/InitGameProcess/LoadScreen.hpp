@@ -9,13 +9,10 @@ class LoadScreen
 {
 private:
 	// ロード画面
-	int draw[1];
+	int draw;
 
 	// ロード画面の画像の動き
 	int walkCount;
-
-	// ロード終了
-	int endDraw;
 
 
 public:
