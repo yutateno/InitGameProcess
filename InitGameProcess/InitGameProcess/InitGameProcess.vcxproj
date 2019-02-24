@@ -91,13 +91,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\EffekseerForDXLib_141_319f\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;E:\Documents\GitHubRip\InitGameProcess\InitGameProcess\InitGameProcess\DLLXinput\debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\DLLXinput\debug;\EffekseerForDXLib_141_319f\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>E:\EffekseerForDXLib_141_319f\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;E:\Documents\GitHubRip\InitGameProcess\InitGameProcess\InitGameProcess\DLLXinput\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>\EffekseerForDXLib_141_319f\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\DLLXinput\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>DLLXinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -127,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\EffekseerForDXLib_141_319f\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;E:\Documents\GitHubRip\InitGameProcess\InitGameProcess\InitGameProcess\DLLXinput\release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>\EffekseerForDXLib_141_319f\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)DLLXinput\release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -135,7 +135,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>E:\EffekseerForDXLib_141_319f\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;E:\Documents\GitHubRip\InitGameProcess\InitGameProcess\InitGameProcess\DLLXinput\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>\EffekseerForDXLib_141_319f\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)DLLXinput\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>DLLXinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>

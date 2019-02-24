@@ -67,7 +67,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SoundProcess::Init();			// サウンドプロセスの初期化
 
 	DLLXinput::Init();				// DLLXinputの更新
-	DLLXinput::FirstUpdate();		// DLLXinputの初期更新
 
 
 	// ゲームの核
@@ -76,9 +75,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		ClearDrawScreen();
 
 		SoundProcess::Process();
-		DLLXinput::EverUpdate();
+		DLLXinput::AllControllerUpdate();
 
-		printfDx("%d\n", DLLXinput::GetPadButtonData(DLLXinput::XINPUT_PAD::NUM01, DLLXinput::XINPUT_PAD::BUTTON_A));
+		printfDx("%d\t%d\n", DLLXinput::GetPadButtonData(DLLXinput::XINPUT_PAD::NUM01, DLLXinput::XINPUT_PAD::BUTTON_A)
+			, DLLXinput::GetPadButtonData(DLLXinput::XINPUT_PAD::NUM02, DLLXinput::XINPUT_PAD::BUTTON_B));
 
 		ScreenFlip();
 	} /// while
