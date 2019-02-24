@@ -87,4 +87,9 @@
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="media\icon.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
 </Project>
