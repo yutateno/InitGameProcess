@@ -10,6 +10,7 @@ void Manager::SceneChange()
 	{
 		// タイトルのロード
 	case ESceneNumber::TITLELOAD:
+		BASICPARAM::startFeedNow = true;
 		p_loadThread = new LoadThread();
 		POINTER_RELEASE(p_baseMove);
 		break;
@@ -18,7 +19,6 @@ void Manager::SceneChange()
 		// タイトル
 	case ESceneNumber::TITLE:
 		BASICPARAM::startFeedNow = true;
-		feedCount = 255;
 		p_baseMove = new Title(p_loadThread->GetFile());
 		p_baseMove->SetScene(BASICPARAM::e_nowScene);
 		POINTER_RELEASE(p_loadThread);
@@ -31,6 +31,7 @@ void Manager::SceneChange()
 
 		// ゲームのロード
 	case ESceneNumber::GAMELOAD:
+		BASICPARAM::startFeedNow = true;
 		p_loadThread = new LoadThread();
 		POINTER_RELEASE(p_baseMove);
 		break;
@@ -39,7 +40,6 @@ void Manager::SceneChange()
 		// ゲーム
 	case ESceneNumber::GAME:
 		BASICPARAM::startFeedNow = true;
-		feedCount = 255;
 		p_baseMove = new Game(p_loadThread->GetFile());
 		p_baseMove->SetScene(BASICPARAM::e_nowScene);
 		POINTER_RELEASE(p_loadThread);
@@ -145,7 +145,7 @@ Manager::Manager()
 	// フェード処理に関する
 	feedCount = 0;
 	BASICPARAM::endFeedNow = false;
-	BASICPARAM::startFeedNow = false;
+	BASICPARAM::startFeedNow = true;
 	feedDraw = BASICPARAM::feedColor;
 } /// Manager::Manager()
 
@@ -172,38 +172,92 @@ void Manager::Update()
 		// 最初のムーブのロードだったら
 		if (BASICPARAM::e_preScene == ESceneNumber::TITLELOAD)
 		{
-			// シーン１の素材ファイル
-			InitMove1Load();
-
-
-			p_loadThread->Process(max1, moveStr, loadType);		// ロードをする
-
-
-			// ロードが終了したら
-			if (p_loadThread->GetNum() >= max1)
+			if (!BASICPARAM::startFeedNow)
 			{
-				BASICPARAM::endFeedNow = true;						// 終了フェードのフラッグを立てる
-				preLoadScene = true;								// 直前がロードだったとする
-				BASICPARAM::e_nowScene = ESceneNumber::TITLE;	// 次のシーンを指定する
-			}
+				// シーン１の素材ファイル
+				InitMove1Load();
+
+
+				p_loadThread->Process(max1, moveStr, loadType);		// ロードをする
+
+
+				// ロードが終了したら
+				if (p_loadThread->GetNum() >= max1)
+				{
+					BASICPARAM::endFeedNow = true;						// 終了フェードのフラッグを立てる
+					preLoadScene = true;								// 直前がロードだったとする
+					BASICPARAM::e_nowScene = ESceneNumber::TITLE;	// 次のシーンを指定する
+				}
+			} /// if (!BASICPARAM::startFeedNow)
+			// 開始フェードが立っていたら
+			else
+			{
+				// ゲームに関する一連
+				p_loadThread->Draw();
+
+
+				// フェードカウントが下がりまくったら開始フェードフラッグを下す
+				if (feedCount <= 0)
+				{
+					BASICPARAM::startFeedNow = false;
+				}
+				else
+				{
+					// フェードカウントを下げる
+					feedCount -= 17;
+
+
+					// フェードイン処理
+					SetDrawBlendMode(DX_BLENDMODE_ALPHA, feedCount);
+					DrawBox(0, 0, BASICPARAM::winWidth, BASICPARAM::winHeight, feedDraw, true);
+					SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+				}
+			} /// else(!if (!BASICPARAM::startFeedNow))
 		}
 		// 二番目のムーブのロードだったら
 		else if (BASICPARAM::e_preScene == ESceneNumber::GAMELOAD)
 		{
-			// シーン２の素材ファイル
-			InitMove2Load();
-
-
-			p_loadThread->Process(max2, moveStr, loadType);		// ロードをする
-
-
-			// ロードが終了したら
-			if (p_loadThread->GetNum() >= max2)
+			if (!BASICPARAM::startFeedNow)
 			{
-				BASICPARAM::endFeedNow = true;						// 終了フェードのフラッグを立てる
-				preLoadScene = true;								// 直前がロードだったら
-				BASICPARAM::e_nowScene = ESceneNumber::GAME;	// 次のシーンを指定する
-			}
+				// シーン２の素材ファイル
+				InitMove2Load();
+
+
+				p_loadThread->Process(max2, moveStr, loadType);		// ロードをする
+
+
+				// ロードが終了したら
+				if (p_loadThread->GetNum() >= max2)
+				{
+					BASICPARAM::endFeedNow = true;						// 終了フェードのフラッグを立てる
+					preLoadScene = true;								// 直前がロードだったら
+					BASICPARAM::e_nowScene = ESceneNumber::GAME;	// 次のシーンを指定する
+				}
+			} /// if (!BASICPARAM::startFeedNow)
+			// 開始フェードが立っていたら
+			else
+			{
+				// ゲームに関する一連
+				p_loadThread->Draw();
+
+
+				// フェードカウントが下がりまくったら開始フェードフラッグを下す
+				if (feedCount <= 0)
+				{
+					BASICPARAM::startFeedNow = false;
+				}
+				else
+				{
+					// フェードカウントを下げる
+					feedCount -= 17;
+
+
+					// フェードイン処理
+					SetDrawBlendMode(DX_BLENDMODE_ALPHA, feedCount);
+					DrawBox(0, 0, BASICPARAM::winWidth, BASICPARAM::winHeight, feedDraw, true);
+					SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+				}
+			} /// else(!if (!BASICPARAM::startFeedNow))
 		}
 		// ロードではなくゲームだったら
 		else
@@ -256,24 +310,25 @@ void Manager::Update()
 				// 開始フェードが立っていたら
 				else
 				{
-					feedCount -= 5;						// フェードカウントを下げる			
-
-
 					// ゲームに関する一連
 					p_baseMove->Draw();
-
-
-					// フェードイン処理
-					SetDrawBlendMode(DX_BLENDMODE_ALPHA, feedCount);
-					DrawBox(0, 0, BASICPARAM::winWidth, BASICPARAM::winHeight, feedDraw, true);
-					SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 
 
 					// フェードカウントが下がりまくったら開始フェードフラッグを下す
 					if (feedCount <= 0)
 					{
-						feedCount = 0;
 						BASICPARAM::startFeedNow = false;
+					}
+					else
+					{
+						// フェードカウントを下げる
+						feedCount -= 5;
+
+
+						// フェードイン処理
+						SetDrawBlendMode(DX_BLENDMODE_ALPHA, feedCount);
+						DrawBox(0, 0, BASICPARAM::winWidth, BASICPARAM::winHeight, feedDraw, true);
+						SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 					}
 				} /// else(!if (!BASICPARAM::startFeedNow))
 			} /// if (!optionMenuNow)
@@ -324,9 +379,6 @@ void Manager::Update()
 
 					// サウンドを解放する
 					SoundProcess::Release();
-
-
-					feedCount = 0;
 					BASICPARAM::endFeedNow = false;
 				}
 				else
@@ -351,7 +403,6 @@ void Manager::Update()
 				// フェードカウントが一定に達したらフラッグを下す
 				if (feedCount >= 255)
 				{
-					feedCount = 0;
 					BASICPARAM::endFeedNow = false;
 				}
 				else
